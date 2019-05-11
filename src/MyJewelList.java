@@ -8,32 +8,32 @@ public class MyJewelList implements List<Jewel> {
     private static final int INIT_SIZE = 15;
     private static final float INCREASE_SIZE = 0.3f;
 
-    private Jewel[] elements;
+    private Jewel[] circlet;
     private int size;
 
 
     public MyJewelList() {
-        elements = new Jewel[INIT_SIZE];
+        circlet = new Jewel[INIT_SIZE];
         size = 0;
     }
 
     public MyJewelList(Jewel Jewel) {
-//        elements = new list.Jewel[INIT_SIZE];
+//        circlet = new list.Jewel[INIT_SIZE];
         this();
-//        elements[0] = Jewel;
+//        circlet[0] = Jewel;
         add(Jewel);
     }
 
     public MyJewelList(Collection<Jewel> collection) {
         this();
-//        elements = new list.Jewel[collection.size()];
+//        circlet = new list.Jewel[collection.size()];
         for (Jewel o : collection) {
             add(o);
         }
     }
 
-    public Jewel[] getElements() {
-        return elements;
+    public Jewel[] getCirclet() {
+        return circlet;
     }
 
     @Override
@@ -48,21 +48,21 @@ public class MyJewelList implements List<Jewel> {
 
     @Override
     public boolean add(Jewel Jewel) {
-        if (size == elements.length) {
+        if (size == circlet.length) {
             resize();
         }
-        elements[size++] = Jewel;
+        circlet[size++] = Jewel;
         return true;
     }
 
     private void resize() {
-        int newSize = (int) (elements.length *
+        int newSize = (int) (circlet.length *
                 (1 + INCREASE_SIZE));
-        Jewel[] newElements = new Jewel[newSize];
-        for (int i = 0; i < elements.length; i++) {
-            newElements[i] = elements[i];
+        Jewel[] newcirclet = new Jewel[newSize];
+        for (int i = 0; i < circlet.length; i++) {
+            newcirclet[i] = circlet[i];
         }
-        elements = newElements;
+        circlet = newcirclet;
     }
 
     @Override

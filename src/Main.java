@@ -20,7 +20,7 @@ public class Main {
         simple.add(new Jewel("Diamond", 26, 270, 0.5));
 
 
-        for (Jewel jewel : simple.getElements()) {
+        for (Jewel jewel : simple.getCirclet()) {
             System.out.println(jewel);
         }
 
