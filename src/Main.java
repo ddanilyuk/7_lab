@@ -1,25 +1,23 @@
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         MyJewelList simple = new MyJewelList();
-        simple.add(new Jewel(10));
-        simple.add(new Jewel(20));
-        simple.add(new Jewel(30));
-        simple.add(new Jewel(40));
-        simple.add(new Jewel(50));
-        simple.add(new Jewel(60));
-        simple.add(new Jewel(70));
-        simple.add(new Jewel(80));
-        simple.add(new Jewel(90));
-        simple.add(new Jewel(100));
-        simple.add(new Jewel(110));
-        simple.add(new Jewel(120));
-        simple.add(new Jewel(130));
-        simple.add(new Jewel(140));
-        simple.add(new Jewel(150));
-        simple.add(new Jewel(160));
-
+        simple.add(new Jewel("Diamond", 10, 100, 0.5));
+        simple.add(new Jewel("Diamond", 11, 110, 0.5));
+        simple.add(new Jewel("Diamond", 12, 120, 0.5));
+        simple.add(new Jewel("Diamond", 13, 130, 0.5));
+        simple.add(new Jewel("Diamond", 14, 140, 0.5));
+        simple.add(new Jewel("Diamond", 15, 150, 0.5));
+        simple.add(new Jewel("Diamond", 16, 160, 0.5));
+        simple.add(new Jewel("Diamond", 17, 170, 0.5));
+        simple.add(new Jewel("Diamond", 18, 180, 0.5));
+        simple.add(new Jewel("Diamond", 19, 190, 0.5));
+        simple.add(new Jewel("Diamond", 20, 200, 0.5));
+        simple.add(new Jewel("Diamond", 21, 210, 0.5));
+        simple.add(new Jewel("Diamond", 22, 220, 0.5));
+        simple.add(new Jewel("Diamond", 23, 230, 0.5));
+        simple.add(new Jewel("Diamond", 24, 240, 0.5));
+        simple.add(new Jewel("Diamond", 25, 250, 0.5));
+        simple.add(new Jewel("Diamond", 26, 270, 0.5));
 
 
         for (Jewel jewel : simple.getElements()) {
