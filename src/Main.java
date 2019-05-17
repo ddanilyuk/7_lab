@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class Main {
     public static void main(String[] args) {
         MyJewelList simple = new MyJewelList();
@@ -22,6 +24,13 @@ public class Main {
 
         for (Jewel jewel : simple.getCirclet()) {
             System.out.println(jewel);
+        }
+
+
+        System.out.println("=============");
+        Iterator<Jewel> iterator = simple.iterator();
+        while (iterator.hasNext()){
+            System.out.println(iterator.next());
         }
 
     }

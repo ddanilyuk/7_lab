@@ -26,10 +26,12 @@ public class MyJewelList implements List<Jewel> {
 
     public MyJewelList(Collection<Jewel> collection) {
         this();
-//        circlet = new list.Jewel[collection.size()];
-        for (Jewel o : collection) {
-            add(o);
-        }
+        /**
+         for (Jewel o : collection) {
+         add(o);
+         }
+         **/
+        this.addAll(collection);
     }
 
     public Jewel[] getCirclet() {
@@ -59,9 +61,13 @@ public class MyJewelList implements List<Jewel> {
         int newSize = (int) (circlet.length *
                 (1 + INCREASE_SIZE));
         Jewel[] newcirclet = new Jewel[newSize];
-        for (int i = 0; i < circlet.length; i++) {
-            newcirclet[i] = circlet[i];
-        }
+        /**
+         for (int i = 0; i < circlet.length; i++) {
+         newcirclet[i] = circlet[i];
+         }
+         circlet = newcirclet;
+         */
+        System.arraycopy(circlet, 0, newcirclet, 0, circlet.length);
         circlet = newcirclet;
     }
 
@@ -74,15 +80,56 @@ public class MyJewelList implements List<Jewel> {
     public boolean isEmpty() {
         return size == 0;
     }
-
+    /*
     @Override
     public boolean contains(Object o) {
+        return indexOf(o) != -1;
+    }
+    */
+
+
+    @Override
+    public boolean contains(Object o){
+        for (Jewel jewel: this) {
+            if(jewel.equals(o)){
+                return true;
+            }
+        }
         return false;
     }
 
+    /*
     @Override
     public Iterator<Jewel> iterator() {
-        return null;
+        final int[] index = {0};
+        return new Iterator<Jewel>() {
+            @Override
+            public boolean hasNext() {
+                return index[0] < size;
+            }
+
+            @Override
+            public Jewel next() {
+                return circlet[index[0]++];
+            }
+        };
+    }
+    */
+
+    @Override
+    public Iterator<Jewel> iterator() {
+        return new Iterator<Jewel>() {
+            int index = 0;
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Jewel next() {
+                return circlet[index++];
+            }
+        };
     }
 
 
@@ -118,7 +165,7 @@ public class MyJewelList implements List<Jewel> {
 
     @Override
     public void clear() {
-
+        size = 0;
     }
 
     @Override
