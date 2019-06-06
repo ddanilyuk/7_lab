@@ -10,20 +10,23 @@ public class MyJewelList implements List<Jewel> {
     private Jewel[] circlet;
     private int size;
 
+    static void separator(String title) {
+        System.out.println("========" + title + "========");
+    }
 
-    public MyJewelList() {
+    MyJewelList() {
         circlet = new Jewel[INIT_SIZE];
         size = 0;
     }
 
-    public MyJewelList(Jewel Jewel) {
+    MyJewelList(Jewel Jewel) {
         this();
         add(Jewel);
     }
 
     public MyJewelList(Collection<Jewel> collection) {
         this();
-        /**
+        /*
          for (Jewel o : collection) {
          add(o);
          }
@@ -31,7 +34,7 @@ public class MyJewelList implements List<Jewel> {
         this.addAll(collection);
     }
 
-    public Jewel[] getCirclet() {
+    Jewel[] getCirclet() {
         return circlet;
     }
 
@@ -41,18 +44,18 @@ public class MyJewelList implements List<Jewel> {
     }
 
     @Override
-    public <train> train[] toArray(@NotNull train[] train) {
-        if (!(train instanceof MyJewelList[])) throw new ArrayStoreException();
-        if (this.size() > train.length) {
-            return (train[]) this.toArray();
+    public <jewel> jewel[] toArray(@NotNull jewel[] jewel) {
+        if (!(jewel instanceof MyJewelList[])) throw new ArrayStoreException();
+        if (this.size() > jewel.length) {
+            return (jewel[]) this.toArray();
         }
 
         int i = 0;
         for (Object obj : this.toArray()) {
-            train[i] = (train) obj;
+            jewel[i] = (jewel) obj;
             ++i;
         }
-        return train;
+        return jewel;
     }
 
     @Override
@@ -180,9 +183,9 @@ public class MyJewelList implements List<Jewel> {
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c == null) throw new NullPointerException();
-        for (Jewel train : this.circlet) {
-            if (!c.contains(train) && train != null)
-                this.remove(train);
+        for (Jewel jewel : this.circlet) {
+            if (!c.contains(jewel) && jewel != null)
+                this.remove(jewel);
         }
         return true;
     }
@@ -197,12 +200,12 @@ public class MyJewelList implements List<Jewel> {
     }
 
     @Override
-    public Jewel set(int index, Jewel train) {
+    public Jewel set(int index, Jewel jewel) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         Jewel res = get(index);
-        circlet[index] = train;
+        circlet[index] = jewel;
         return res;
     }
 
