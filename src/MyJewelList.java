@@ -10,39 +10,42 @@ public class MyJewelList implements List<Jewel> {
     private Jewel[] circlet;
     private int size;
 
+
     static void separator(String title) {
-        System.out.println("========" + title + "========");
+        System.out.println("\n========" + title + "========");
     }
+
 
     MyJewelList() {
         circlet = new Jewel[INIT_SIZE];
         size = 0;
     }
 
+
     MyJewelList(Jewel Jewel) {
         this();
         add(Jewel);
     }
 
-    public MyJewelList(Collection<Jewel> collection) {
+
+    MyJewelList(Collection<Jewel> collection) {
         this();
-        /*
-         for (Jewel o : collection) {
-         add(o);
-         }
-         **/
         this.addAll(collection);
     }
+
 
     Jewel[] getCirclet() {
         return circlet;
     }
+
 
     @Override
     public Jewel[] toArray() {
         return Arrays.copyOf(circlet, size);
     }
 
+
+    //todo
     @Override
     public <jewel> jewel[] toArray(@NotNull jewel[] jewel) {
         if (!(jewel instanceof MyJewelList[])) throw new ArrayStoreException();
@@ -58,6 +61,7 @@ public class MyJewelList implements List<Jewel> {
         return jewel;
     }
 
+
     @Override
     public boolean add(Jewel Jewel) {
         if (size == circlet.length) {
@@ -67,6 +71,7 @@ public class MyJewelList implements List<Jewel> {
         return true;
     }
 
+
     private void resize() {
         int newSize = (int) (circlet.length *
                 (1 + INCREASE_SIZE));
@@ -75,10 +80,12 @@ public class MyJewelList implements List<Jewel> {
         circlet = newcirclet;
     }
 
+
     @Override
     public int size() {
         return size;
     }
+
 
     @Override
     public boolean isEmpty() {
@@ -96,6 +103,7 @@ public class MyJewelList implements List<Jewel> {
         return false;
     }
 
+
     @Override
     public Iterator<Jewel> iterator() {
         return new Iterator<Jewel>() {
@@ -112,6 +120,7 @@ public class MyJewelList implements List<Jewel> {
             }
         };
     }
+
 
     @Override
     public void clear() {
@@ -133,6 +142,7 @@ public class MyJewelList implements List<Jewel> {
         }
     }
 
+
     @Override
     public boolean containsAll(@NotNull Collection<?> c) {
         if (c == null) throw new NullPointerException();
@@ -144,6 +154,7 @@ public class MyJewelList implements List<Jewel> {
         return true;
     }
 
+
     @Override
     public boolean addAll(@NotNull Collection<? extends Jewel> c) {
         if (circlet.length == size) {
@@ -152,6 +163,7 @@ public class MyJewelList implements List<Jewel> {
         for (Jewel o : c) this.add(o);
         return true;
     }
+
 
     @Override
     public boolean addAll(int index, @NotNull Collection<? extends Jewel> c)
@@ -169,6 +181,7 @@ public class MyJewelList implements List<Jewel> {
         return true;
     }
 
+
     @Override
     public boolean removeAll(Collection<?> c) {
         Object[] a = c.toArray();
@@ -179,6 +192,7 @@ public class MyJewelList implements List<Jewel> {
         }
         return true;
     }
+
 
     @Override
     public boolean retainAll(Collection<?> c) {
@@ -199,6 +213,7 @@ public class MyJewelList implements List<Jewel> {
         return circlet[index];
     }
 
+
     @Override
     public Jewel set(int index, Jewel jewel) {
         if (index < 0 || index >= size) {
@@ -209,10 +224,12 @@ public class MyJewelList implements List<Jewel> {
         return res;
     }
 
+
     @Override
     public void add(int index, Jewel element) throws IndexOutOfBoundsException {
         this.set(index + 1, element);
     }
+
 
     @Override
     public Jewel remove(int index) {
@@ -226,6 +243,7 @@ public class MyJewelList implements List<Jewel> {
         }
     }
 
+
     @Override
     public int indexOf(Object o) {
         for (int i = 0; i < size(); i++) {
@@ -235,6 +253,7 @@ public class MyJewelList implements List<Jewel> {
         }
         return -1;
     }
+
 
     @Override
     public int lastIndexOf(Object o) {
@@ -250,10 +269,12 @@ public class MyJewelList implements List<Jewel> {
         return -1;
     }
 
+
     @Override
     public ListIterator<Jewel> listIterator() {
         return (ListIterator<Jewel>) this.iterator();
     }
+
 
     @Override
     public ListIterator<Jewel> listIterator(int index) {

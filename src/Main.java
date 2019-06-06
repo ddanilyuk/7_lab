@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class Main {
@@ -34,6 +35,15 @@ public class Main {
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
+
+
+        MyJewelList.separator("ToArray");
+        System.out.println(Arrays.toString(jewelListThird.toArray()));
+
+
+        MyJewelList.separator("DeleteSomeJewel2");
+        jewelListThird.remove(someJewel2);
+        System.out.println(Arrays.toString(jewelListThird.toArray()));
 
 
         //End printing
