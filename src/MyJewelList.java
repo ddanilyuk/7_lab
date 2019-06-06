@@ -1,7 +1,6 @@
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import com.sun.istack.internal.NotNull;
+
+import java.util.*;
 
 public class MyJewelList implements List<Jewel> {
 
@@ -18,9 +17,7 @@ public class MyJewelList implements List<Jewel> {
     }
 
     public MyJewelList(Jewel Jewel) {
-//        circlet = new list.Jewel[INIT_SIZE];
         this();
-//        circlet[0] = Jewel;
         add(Jewel);
     }
 
@@ -39,13 +36,23 @@ public class MyJewelList implements List<Jewel> {
     }
 
     @Override
-    public Object[] toArray() {
-        return new Object[0];
+    public Jewel[] toArray() {
+        return Arrays.copyOf(circlet, size);
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
-        return null;
+    public <train> train[] toArray(@NotNull train[] train) {
+        if (!(train instanceof MyJewelList[])) throw new ArrayStoreException();
+        if (this.size() > train.length) {
+            return (train[]) this.toArray();
+        }
+
+        int i = 0;
+        for (Object obj : this.toArray()) {
+            train[i] = (train) obj;
+            ++i;
+        }
+        return train;
     }
 
     @Override
@@ -61,12 +68,6 @@ public class MyJewelList implements List<Jewel> {
         int newSize = (int) (circlet.length *
                 (1 + INCREASE_SIZE));
         Jewel[] newcirclet = new Jewel[newSize];
-        /**
-         for (int i = 0; i < circlet.length; i++) {
-         newcirclet[i] = circlet[i];
-         }
-         circlet = newcirclet;
-         */
         System.arraycopy(circlet, 0, newcirclet, 0, circlet.length);
         circlet = newcirclet;
     }
@@ -80,46 +81,23 @@ public class MyJewelList implements List<Jewel> {
     public boolean isEmpty() {
         return size == 0;
     }
-    /*
+
+
     @Override
     public boolean contains(Object o) {
-        return indexOf(o) != -1;
-    }
-    */
-
-
-    @Override
-    public boolean contains(Object o){
-        for (Jewel jewel: this) {
-            if(jewel.equals(o)){
+        for (Jewel jewel : this) {
+            if (jewel.equals(o)) {
                 return true;
             }
         }
         return false;
     }
 
-    /*
-    @Override
-    public Iterator<Jewel> iterator() {
-        final int[] index = {0};
-        return new Iterator<Jewel>() {
-            @Override
-            public boolean hasNext() {
-                return index[0] < size;
-            }
-
-            @Override
-            public Jewel next() {
-                return circlet[index[0]++];
-            }
-        };
-    }
-    */
-
     @Override
     public Iterator<Jewel> iterator() {
         return new Iterator<Jewel>() {
             int index = 0;
+
             @Override
             public boolean hasNext() {
                 return index < size;
@@ -132,84 +110,171 @@ public class MyJewelList implements List<Jewel> {
         };
     }
 
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends Jewel> c) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(int index, Collection<? extends Jewel> c) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
     @Override
     public void clear() {
         size = 0;
     }
 
+
+    @Override
+    public boolean remove(Object o) {
+        if (o == null) {
+            throw new NullPointerException();
+        } else {
+            int index = indexOf(o);
+            if (index == -1) {
+                return false;
+            }
+            remove(index);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean containsAll(@NotNull Collection<?> c) {
+        if (c == null) throw new NullPointerException();
+        for (Object d : c) {
+            if (!this.contains(d)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean addAll(@NotNull Collection<? extends Jewel> c) {
+        if (circlet.length == size) {
+            resize();
+        }
+        for (Jewel o : c) this.add(o);
+        return true;
+    }
+
+    @Override
+    public boolean addAll(int index, @NotNull Collection<? extends Jewel> c)
+            throws IllegalArgumentException {
+        if (circlet.length == size) {
+            resize();
+            if (index > this.size()) {
+                throw new IllegalArgumentException();
+            } else {
+                for (Object obj : c) {
+                    this.add((Jewel) obj);
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        Object[] a = c.toArray();
+        for (Object o : a) {
+            if (circlet.equals(o)) {
+                remove(circlet);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        if (c == null) throw new NullPointerException();
+        for (Jewel train : this.circlet) {
+            if (!c.contains(train) && train != null)
+                this.remove(train);
+        }
+        return true;
+    }
+
+
     @Override
     public Jewel get(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return circlet[index];
     }
 
     @Override
-    public Jewel set(int index, Jewel element) {
-        return null;
+    public Jewel set(int index, Jewel train) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Jewel res = get(index);
+        circlet[index] = train;
+        return res;
     }
 
     @Override
-    public void add(int index, Jewel element) {
-
+    public void add(int index, Jewel element) throws IndexOutOfBoundsException {
+        this.set(index + 1, element);
     }
 
     @Override
     public Jewel remove(int index) {
-        return null;
+        if (index < 0 | index > circlet.length) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            Jewel element = get(index);
+            if (size - 1 - index >= 0) System.arraycopy(circlet, index + 1, circlet, index, size - 1 - index);
+            size--;
+            return element;
+        }
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        for (int i = 0; i < size(); i++) {
+            if (circlet[i].equals(o)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        if (o == null) {
+            for (int i = 0; i < size; i++)
+                if (circlet[i] == null)
+                    return i;
+        } else {
+            for (int i = 0; i < size; i++)
+                if (o.equals(circlet[i]))
+                    return i;
+        }
+        return -1;
     }
 
     @Override
     public ListIterator<Jewel> listIterator() {
-        return null;
+        return (ListIterator<Jewel>) this.iterator();
     }
 
     @Override
     public ListIterator<Jewel> listIterator(int index) {
-        return null;
+        if (index < 0 || index > this.size())
+            throw new IndexOutOfBoundsException();
+        ListIterator<Jewel> listIterator = this.listIterator();
+        for (int i = 0; i < index; ++i) listIterator.next();
+        return listIterator;
     }
 
+
     @Override
-    public List<Jewel> subList(int fromIndex, int toIndex) {
-        return null;
+    public List<Jewel> subList(int fromIndex, int toIndex)
+            throws IndexOutOfBoundsException {
+        if (fromIndex > toIndex && toIndex > this.size()) {  //&& fromIndex < 0)
+            throw new IndexOutOfBoundsException();
+        }
+        Jewel[] copy = Arrays.copyOfRange(circlet, fromIndex, toIndex);
+        return Arrays.asList(copy);
+    }
+
+
+    @Override
+    public String toString() {
+        return Arrays.toString(circlet);
     }
 }
